@@ -19,11 +19,12 @@ qInfo()
 
 QCoreApplication is used here to build the executable.
 
+#Priting Methods
 ```
     QCoreApplication a(argc, argv); //Instance of QCodeApplication object "a"
 
     qInfo()<< "Hello QT world"; //1st way
-    qInfor("Hello World again"); //2nd way
+    qInfo("Hello World again"); //2nd way
 
     return a.exec(); 
 
@@ -31,5 +32,13 @@ QCoreApplication is used here to build the executable.
 *return statement* in int main() takes care of the error codes.
 
 
+## Different ways
+
+```
+    qInfo() << "A simple print"; //users can see this as well
+    qDebug() << "Debug print"; //generally for programmers
+    qCritical() << "Critical Print"; //let both users and programmer know about this
+    qFatal("Exits the program after printing");
+```
 
 
