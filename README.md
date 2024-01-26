@@ -19,7 +19,7 @@ qInfo()
 
 QCoreApplication is used here to build the executable.
 
-#Priting Methods
+# Priting Methods
 ```
     QCoreApplication a(argc, argv); //Instance of QCodeApplication object "a"
 
