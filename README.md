@@ -60,7 +60,7 @@ They are done with the macro:
 ```
 Q_DISABLE_COPY(QObject)
 ```
-In order to still work with them, you need to define them explicitly (in actual you need to define them).
+In order to still work with them, you need to define copy constructors explicitly (in actual you need to define them).
 
 # Meta Object Compiler
 Qt's meta-object system provides the signals and slots mechanism for inter-object communication, run-time type information, and the dynamic property system.
