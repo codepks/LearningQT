@@ -54,7 +54,7 @@ cerr is for standard error and cout is for standard output
 3. NOTE : This macro requires the class to be a subclass of QObject. Use Q_GADGET or Q_GADGET_EXPORT instead of Q_OBJECT to enable the meta object system's support for enums in a class that is not a QObject subclass
 
 
-### Copy Constructor and Assignment Operator
+### Copying Objects
 QObject doesn't like to get copied and by default all the copy constructors and assignment constructors are deleted.
 They are done with the macro:
 ```
