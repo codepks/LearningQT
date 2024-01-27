@@ -52,8 +52,15 @@ cerr is for standard error and cout is for standard output
 1. The Q_OBJECT macro must appear in the private section of a class definition that declares its own signals and slots or that uses other services provided by Qt's meta-object system.
 2. The Q_OBJECT macro inside the private section of the class declaration is used to enable meta-object features, such as dynamic properties, signals, and slots.
 3. NOTE : This macro requires the class to be a subclass of QObject. Use Q_GADGET or Q_GADGET_EXPORT instead of Q_OBJECT to enable the meta object system's support for enums in a class that is not a QObject subclass
-4. 
 
+
+### Copy Constructor and Assignment Operator
+QObject doesn't like to get copied and by default all the copy constructors and assignment constructors are deleted.
+They are done with the macro:
+```
+Q_DISABLE_COPY(QObject)
+```
+In order to still work with them, you need to define them explicitly (in actual you need to define them).
 
 # Meta Object Compiler
 Qt's meta-object system provides the signals and slots mechanism for inter-object communication, run-time type information, and the dynamic property system.
