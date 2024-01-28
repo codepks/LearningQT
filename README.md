@@ -73,6 +73,7 @@ Multiple inheritance with Interfaces is allowed though.
 *source : https://doc.qt.io/qt-5/objecttrees.html*
 
 > What to delete to delete the whole tree?
+
 Suppose if you have message box which has OK and Cancel buttons, these buttons have set message box as their parent.
 Now, it is enough to delete the parent message box and eventually it will delete it children elements (the buttons too).
 This is an obvious behaviour.
@@ -81,7 +82,8 @@ This is an obvious behaviour.
 QObject* parent = new QObject();
 QObject* child = new QObject(parent);
 
-> No need of Virtual destructor
+>No need of Virtual destructor
+
 If one class somewhere in the inheritance tree has a **virtual destructor**, every child class below will have a virtual destructor. In the case of a child class of QObject and deleting a QObject pointer to an instance of that child class, there is never an issue, even if you forget the virtual keyword in that subclass's destructor declaration.
 
 
