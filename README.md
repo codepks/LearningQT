@@ -92,6 +92,8 @@ If one class somewhere in the inheritance tree has a **virtual destructor**, eve
 When a QObject child object is deleted with a parent QObject, then it will remove itself from the parent object.
 When a QObject parent object then all of its child objects are deleted.
 
+**NOTE : Always prefer parent child relationship for better memory maangement**
+
 # Meta Object Compiler
 Qt's meta-object system provides the signals and slots mechanism for inter-object communication, run-time type information, and the dynamic property system.
 
@@ -99,4 +101,93 @@ Qt's meta-object system provides the signals and slots mechanism for inter-objec
 2. The Q_OBJECT macro inside the private section of the class declaration is used to enable meta-object features, such as dynamic properties, signals, and slots.
 3. The Meta-Object Compiler (moc) supplies each QObject subclass with the necessary code to implement meta-object features.
 4. The moc tool reads a C++ source file. If it finds one or more class declarations that contain the Q_OBJECT macro, it produces another C++ source file which contains the meta-object code for each of those classes. This generated source file is either #include'd into the class's source file or, more usually, compiled and linked with the class's implementation.
+
+
+
+# Signals and Slots
+Signal is a way of letting know to destination object that something happened.
+
+A Signal can be connected to as many slots as possible and vice versa. It is only used for emission and cannot be implemented.
+
+Slot : A public slot behaves like a normal function since it needs to be implemented too. A normal function can be put under public slots.
+
+```
+//source.h
+#ifndef SOURCE_H
+#define SOURCE_H
+#include <QObject>
+
+class Source : public QObject{
+    Q_OBJECT
+public:
+    Source();
+    void test();
+signals:
+    void emitSignal();
+};
+#endif // SOURCE_H
+```
+```
+//source.cpp
+#include "source.h"
+
+Source::Source() {}
+
+void Source::test(){ emit emitSignal(); }
+```
+
+```
+//destination.h
+#ifndef DESTINATION_H
+#define DESTINATION_H
+#include <QDebug>
+#include <QObject>
+
+class Destination : public QObject{
+    Q_OBJECT
+public:
+    Destination();
+public slots:
+    void receiveSignal();
+};
+
+#endif // DESTINATION_H
+```
+
+```
+//destination.cpp
+#include "destination.h"
+
+Destination::Destination() {}
+
+void Destination::receiveSignal(){ qInfo() << "recieved signal"; }
+```
+
+```
+//main.cpp
+#include <QCoreApplication>
+#include <QDebug>
+#include "source.h"
+#include "destination.h"
+
+int main(int argc, char *argv[]){
+    QCoreApplication a(argc, argv); // Instance of QCoreApplication object "a"
+    Source * emitter = new Source();
+    Destination *receiver = new Destination();
+
+    // way 1
+    QObject::connect(emitter, &Source::emitSignal, receiver, &Destination::receiveSignal);
+    // way 2
+    QObject::connect(emitter, SIGNAL(emitSignal()), receiver, SLOT(receiveSignal()));
+    // way 3
+    emitter->connect(emitter, &Source::emitSignal, receiver, &Destination::receiveSignal);
+    emitter->test(); // Emit the signal
+    return a.exec(); // The instance is of an executable
+}
+```
+
+
+
+
+
 
