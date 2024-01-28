@@ -62,6 +62,12 @@ Q_DISABLE_COPY(QObject)
 ```
 In order to still work with them, you need to define copy constructors explicitly (in actual you need to define them).
 
+## Inheritance
+Q_OBJECT doesn't allow multiple inheritance, it gives error moc files.
+Multiple inheritance with Interfaces is allowed though.
+
+*TIP : Don't alays trust memoery locations when working with stack as lot of optimizations happen around here".f
+
 # Meta Object Compiler
 Qt's meta-object system provides the signals and slots mechanism for inter-object communication, run-time type information, and the dynamic property system.
 
