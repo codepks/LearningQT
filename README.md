@@ -192,7 +192,7 @@ int main(int argc, char *argv[]){
 }
 ```
 
-
+**NOTE: If put in the same main file then this this gives strange moc file errors.**
 
 
 
