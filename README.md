@@ -111,6 +111,8 @@ A Signal can be connected to as many slots as possible and vice versa. It is onl
 
 Slot : A public slot behaves like a normal function since it needs to be implemented too. A normal function can be put under public slots.
 
+> SIGNAL FILES
+
 ```
 //source.h
 #ifndef SOURCE_H
@@ -135,6 +137,8 @@ Source::Source() {}
 
 void Source::test(){ emit emitSignal(); }
 ```
+
+> SLOT FILES
 
 ```
 //destination.h
@@ -162,6 +166,8 @@ Destination::Destination() {}
 
 void Destination::receiveSignal(){ qInfo() << "recieved signal"; }
 ```
+
+> MAIN FILE
 
 ```
 //main.cpp
