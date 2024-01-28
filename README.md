@@ -1,4 +1,4 @@
-# QT QML Udemy course
+# QT Udemy course
 
 Qt is not a programming language on its own. It is a framework written in C++. 
 A preprocessor, the MOC (Meta-Object Compiler), is used to extend the C++ language with features like signals and slots.
@@ -192,7 +192,11 @@ int main(int argc, char *argv[]){
 }
 ```
 
-**NOTE: If put in the same main file then this this gives strange moc file errors.**
+> NOTE
+ 
+1. If put in the same main file then this gives strange moc file errors
+2. emitter function and slot function should be of the same function (the ones you put in the QObject::connect()
+3. Only slot implementation is required, singla implementataion is taken care by QT
 
 
 
