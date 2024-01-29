@@ -111,6 +111,8 @@ A Signal can be connected to as many slots as possible and vice versa. It is onl
 
 Slot : A public slot behaves like a normal function since it needs to be implemented too. A normal function can be put under public slots.
 
+## Easy Example
+
 > SIGNAL FILES
 
 ```
@@ -199,5 +201,113 @@ int main(int argc, char *argv[]){
 3. Only slot implementation is required, singla implementataion is taken care by QT
 
 
+## One to Many
+Example of Radio and Channels. We will use QueuedConnection and Application Quit over here.
+
+> Radio Files
+
+```
+//radio.h
+class radio : public QObject
+{
+    Q_OBJECT
+public:
+    radio(QObject * parent = nullptr);
+
+    void tuneFrequencyTo(float frequency);
+    void turnOffRadio();
 
 
+signals:
+    void connectTo(float frequency);
+    void turningOff();  //Mean to quit the application
+};
+```
+```
+//radio.cpp
+radio::radio(QObject * parent) : QObject(parent)
+{
+
+}
+
+void radio::tuneFrequencyTo(float frequency)
+{
+    emit connectTo(frequency);
+}
+
+void radio::turnOffRadio()
+{
+    qInfo() << "Turning off the Radio";
+    emit turningOff();
+}
+```
+
+>  Channel Files
+
+```
+class channels : public QObject
+{
+    Q_OBJECT
+public:
+    channels(QObject * parent = nullptr, QString channelName = "empty", float channelFrequency = 98.3);
+
+public slots:
+    void connectedToChannel(float frequency);
+
+private:
+    QString channelName;
+    float channelFrequency;
+
+};
+```
+
+```
+channels::channels(QObject * parent, QString channelName, float channelFrequency) : QObject(parent)
+{
+    this->channelName = channelName;
+    this->channelFrequency = channelFrequency;
+}
+
+void channels::connectedToChannel(float frequency)
+{
+    if(frequency == this->channelFrequency)
+        qInfo() << "\nYou are listerning to : "<< this->channelName;
+}
+```
+
+
+> Implementation
+
+```
+
+int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+
+    //created a radio object
+    radio *myRadio = new radio();
+
+    //creating different channels
+    channels *radioMirchi = new channels(&a, "Radio Mirchi", 93.5);
+    channels *radioCity = new channels(&a, "Radio City", 91.0);
+    channels *redFM = new channels(&a, "Red FM", 98.3);
+
+    //establish connection between radio and the channels
+    myRadio->connect(myRadio, &radio::connectTo, radioMirchi, &channels::connectedToChannel);
+    myRadio->connect(myRadio, &radio::connectTo, radioCity, &channels::connectedToChannel);
+    myRadio->connect(myRadio, &radio::connectTo, redFM, &channels::connectedToChannel);
+
+    //establish connection of radio to quit the application
+    myRadio->connect(myRadio, &radio::turningOff, &a, &QCoreApplication::quit, Qt::QueuedConnection);
+
+//===============Tune to required frequency and start listing==============
+    myRadio->tuneFrequencyTo(98.3);
+
+ //=========================Turn off the radio=========================
+
+    myRadio->turnOffRadio();
+
+    return a.exec();
+
+}
+```
