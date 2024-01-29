@@ -303,6 +303,9 @@ int main(int argc, char *argv[])
 //===============Tune to required frequency and start listing==============
     myRadio->tuneFrequencyTo(98.3);
 
+    //Disconnecting Signals and Slots
+    myRadio->disconnect(myRadio, &radio::connectTo, radioMirchi, &channels::connectedToChannel);
+    myRadio->disconnect(myRadio, &radio::connectTo, radioCity, &channels::connectedToChannel);
  //=========================Turn off the radio=========================
 
     myRadio->turnOffRadio();
