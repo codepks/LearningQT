@@ -14,7 +14,6 @@ SOURCES += \
 
 in qDebug let's us print things
 ```diff
-+Red
 qInfo() 
 ```
 
