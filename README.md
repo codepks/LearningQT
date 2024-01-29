@@ -307,7 +307,13 @@ int main(int argc, char *argv[])
 
     myRadio->turnOffRadio();
 
-    return a.exec();
+    return a.exec(); 
 
 }
 ```
+
+
+> NOTE
+
+1. QCoreApplication enters the event loop after a.exec() only, that's why calling QCoreApplicatio::quit() via myRadio->turnOffRadio() is senseless as there is no event loop to quit which is what happens in DirectConnection.
+2. If you use QueuedConnection, it will be picked up once the event loop starts and will be executed later. Also it is a good practice to do so.
