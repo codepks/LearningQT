@@ -201,8 +201,12 @@ int main(int argc, char *argv[]){
 3. Only slot implementation is required, singla implementataion is taken care by QT
 
 
-## One to Many
-Example of Radio and Channels. We will use QueuedConnection and Application Quit over here.
+## One to Many 
+Example of Radio and Channels. 
+1. We will use QueuedConnection and Application Quit over here.
+2. Demo One to May Connection
+3. How to Connect and Disconect Signals and Slots
+
 
 > Radio Files
 
@@ -276,7 +280,7 @@ void channels::connectedToChannel(float frequency)
 ```
 
 
-> Implementation
+> Implementation with Connect and Disconnect
 
 ```
 
