@@ -378,4 +378,31 @@ public slots:
 
 ```
 //receiver.cpp
+Receiver::Receiver(QObject* parent) : QObject(parent) { }
+
+void Receiver::getMessage(QString message) { qInfo() << message; }
+```
+
+> MAIN FILE
+
+```
+int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+
+    Emiiter *emitter = new Emiiter();
+    Receiver *receiver = new Receiver();
+
+    QObject::connect(emitter, &Emiiter::messageChanged, receiver, &Receiver::getMessage);
+
+    //instead of using a function here to call the eisngla, we will use Q_PROPERTY
+
+    emitter->setMessage("Sending a signal");
+
+    QString str= "Sending another Signal";
+    emitter->setProperty("message", QVariant(str));
+
+
+    return a.exec();
+}
 ```
