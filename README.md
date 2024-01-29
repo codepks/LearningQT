@@ -406,3 +406,17 @@ int main(int argc, char *argv[])
     return a.exec();
 }
 ```
+
+# Casting
+
+Implicit conversion means the conversions that compiler is doing for you.
+
+qobject_cast doesn't work with C++ RTTI.
+It is only applicable for QObjects.
+```
+car* mycar = qobject_cast<car*> racecar;
+```
+Note: To avoid warning on unused variable, use 
+```
+Q_UNUSED(variable)
+```
