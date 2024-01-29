@@ -413,6 +413,7 @@ Implicit conversion means the conversions that compiler is doing for you.
 
 qobject_cast doesn't work with C++ RTTI.
 It is only applicable for QObjects.
+With qobject_cast from base to derived and derived to base easily.
 ```
 car* mycar = qobject_cast<car*> racecar;
 ```
