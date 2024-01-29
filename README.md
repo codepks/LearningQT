@@ -201,7 +201,7 @@ int main(int argc, char *argv[]){
 3. Only slot implementation is required, singla implementataion is taken care by QT
 
 
-## One to Many 
+## One to Many Connection
 Example of Radio and Channels. 
 1. We will use QueuedConnection and Application Quit over here.
 2. Demo One to May Connection
@@ -325,3 +325,57 @@ int main(int argc, char *argv[])
 1. QCoreApplication enters the event loop after a.exec() only, that's why calling QCoreApplicatio::quit() via myRadio->turnOffRadio() is senseless as there is no event loop to quit which is what happens in DirectConnection.
 2. If you use QueuedConnection, it will be picked up once the event loop starts and will be executed later. Also it is a good practice to do so.
 *source : https://stackoverflow.com/questions/19141910/qcoreapplication-ignores-quit-signal-and-hangs*
+
+## QProperty
+1. Here we will use Q_Property to send a signal instead of using a function directly
+2. Q_PROPERTY is generally used in qml
+
+> EMITTER FILE
+
+```
+//emitter.h
+class Emiiter : public QObject{
+    Q_OBJECT
+public:
+    Emiiter(QObject* parent = nullptr);
+    Q_PROPERTY(QString message READ getMessage WRITE setMessage NOTIFY messageChanged)
+    QString getMessage();
+    void setMessage(QString message);
+
+signals:
+    void messageChanged(QString message);
+
+private:
+    QString message_;
+};
+```
+
+```
+//emitter.cpp
+Emiiter::Emiiter(QObject* parent) : QObject(parent) { }
+
+QString Emiiter::getMessage() {  return message_; }
+
+void Emiiter::setMessage(QString  message){
+    this->message_ = message;
+    emit messageChanged(message);
+}
+```
+
+> RECIEVER FILE
+
+```
+//receiver.h
+class Receiver : public QObject{
+    Q_OBJECT
+public:
+    Receiver(QObject* parent = nullptr);
+
+public slots:
+    void getMessage(QString message);
+};
+```
+
+```
+//receiver.cpp
+```
