@@ -421,3 +421,75 @@ Note: To avoid warning on unused variable, use
 ```
 Q_UNUSED(variable)
 ```
+
+# Error Handling
+
+The given syntax of catch given below is generally not recommended as it doesn't work most of the times:
+```
+catch (...)
+```
+
+## Generic try and catch mechanism
+
+TIP : Always narrow down you erro handling with different catch statements
+```
+void divide(int num){
+    try    {
+        if(num == 0)
+            throw "Cannot divide by 0";
+        else if ( num > 5)
+            throw 99;
+        else if ( num == 1)
+            throw std::runtime_error("Should be greater than 1");
+
+        int result = 10 / num;
+        Q_UNUSED(result);
+    }
+    catch (int a)    { qInfo() << "Error is an int : " << a; }
+    catch (char* c)  { qInfo() << "Erro is a string : " << c;}
+    catch (std::exception & e) { qInfo() << "Error is a standard one : " << e.what(); }
+}
+```
+
+## qWarning()
+
+```
+void divide(int num){
+    if(num == 0)
+        qWarning() << "Error is an int : ";
+    else if ( num > 5)
+        qWarning() << "Error is an int : 99 ";
+    else if ( num == 1)
+        qWarning() << " It isshoudl not be 1";
+
+    int result = 10 / num;
+    qInfo() << "results are : " << result;
+}
+```
+
+# Custom Handling
+
+Making an std::exception structure
+```
+struct MyIssue : public std::exception //what () is a virtual function
+{
+    const char* description;
+    const char* what() const throw() //in place of noexcept we can throw    {
+        return "Yaiikks, your program crashsed";
+    }
+};
+
+void divide(int num){
+    MyIssue e;
+    try    {
+        if(num == 0)        {
+            e.description = "Cannot divide by 0";
+            throw e;
+        }
+        int result = 10 / num;
+        Q_UNUSED(result);
+    }
+    catch (int a)    { qInfo() << "Error is an int : " << a; }
+}
+```
+
