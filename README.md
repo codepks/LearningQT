@@ -49,6 +49,15 @@ cerr is for standard error and cout is for standard output
 # Classes
 
 ## QObject
+
+> Significance
+
+1. It generates the code for connecting signals and slots
+2. It takes care of needed runtime information like dynamic_casting - qObject_cast
+3. IT takes care of language translations
+
+> Note
+
 1. The Q_OBJECT macro must appear in the private section of a class definition that declares its own signals and slots or that uses other services provided by Qt's meta-object system.
 2. The Q_OBJECT macro inside the private section of the class declaration is used to enable meta-object features, such as dynamic properties, signals, and slots.
 3. NOTE : This macro requires the class to be a subclass of QObject. Use Q_GADGET or Q_GADGET_EXPORT instead of Q_OBJECT to enable the meta object system's support for enums in a class that is not a QObject subclass
@@ -493,3 +502,35 @@ void divide(int num){
 }
 ```
 
+# QT Classes
+
+## QInt
+qint8, qint16, qint32, qint64 are guaranteed to be 8 bit, 16 bits, 32 bits and 64 bits on any platform be it 32 bit or 64 bit operating system.
+
+qintptr is the pointer pointing to intergers, and it could be 32 bit or 64 bit depending on the OS.
+
+## QString
+> Some usages
+
+```
+QString name = "Prashant Sharma";
+qInfo() << name.mid(2,3);
+qInfo() << name.insert(0,"Mr. ");
+qInfo() << name.split(" ");
+
+int index = name.indexOf(".");
+qInfo() << name.remove(0, index + 1).trimmed();
+
+QString title = "SDE 2";
+QString full = name.tr
+```
+
+> Output
+
+```
+"ash"
+"Mr. Prashant Sharma"
+QList("Mr.", "Prashant", "Sharma")
+"Prashant Sharma"
+"Prashant Sharma SDE 2"
+```
