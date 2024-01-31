@@ -580,6 +580,26 @@ Used well in socket programming
 
 > Custom Datatypes
 
-```
+To use the custom data types or structure with QVariant one has to register the structure with **Q_DECLARE_METATYPE.**
 
+```
+struct CustomStruct{
+    int a = 10;
+    float b = 30.2;
+    QString name = "Prashant";
+};
+
+Q_DECLARE_METATYPE(CustomStruct) //Required for line 602
+
+int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+    CustomStruct struc{20,40, "variant"};
+    QVariant variant;
+    //variant = struc; //this doesn't work
+    variant.setValue(struc);
+
+    qInfo()  << variant.value<CustomStruct>().a; 
+    return a.exec();
+}
 ```
