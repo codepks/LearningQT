@@ -634,5 +634,21 @@ QList is more versatile and can be used with different datatypes.
 ## QVector<typename>
 
 QVector should be prefferred over QList as Qvector is a sequential memory and QList used more of heap memory.
+QList is closer to boost::ptr_deque, despite the apparent association with std::list. It does not store objects directly, but instead stores pointers to them. 
+> Advantage
+
+You gain all the benefits of quick insertions at both ends, and reallocations involve shuffling pointers instead of copy constructors
+
+> Disadvantage  
+
+You lose the spacial locality of an actual std::deque or std::vector, and gain a lot of heap allocations.
+
+> BUT
+
+ The QT library heavily favors the use of QList objects
+
+> So
+
+It is suggested using QList until profiling suggests changing to a QVector
 
 source : https://stackoverflow.com/questions/6602036/qvector-vs-qlist
