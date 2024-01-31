@@ -630,3 +630,9 @@ QList is more versatile and can be used with different datatypes.
     std::list<int> bc {1,2,3,4,5};
     qInfo() << bc;   //this also works
 ```
+
+## QVector<typename>
+
+QVector should be prefferred over QList as Qvector is a sequential memory and QList used more of heap memory.
+
+source : https://stackoverflow.com/questions/6602036/qvector-vs-qlist
