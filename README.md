@@ -603,3 +603,30 @@ int main(int argc, char *argv[])
     return a.exec();
 }
 ```
+
+## QStringList
+
+It is list of string with a lot of functionalities.
+```
+    QStringList lst;
+    lst.append("Hi");
+    lst.append("Prashant");
+    lst.append("here");
+    qInfo() << lst;
+
+    QString str = "here";
+    int index = lst.indexOf(str);
+    qInfo() << str << "is located at : " << index;
+```
+
+## QList<typename>
+
+QList is more versatile and can be used with different datatypes.
+```
+    QList<int> ab {1,2,3,4};
+
+    foreach (int var, ab) { qInfo() << var;}
+
+    std::list<int> bc {1,2,3,4,5};
+    qInfo() << bc;   //this also works
+```
