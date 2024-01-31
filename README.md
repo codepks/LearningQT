@@ -534,3 +534,52 @@ QList("Mr.", "Prashant", "Sharma")
 "Prashant Sharma"
 "Prashant Sharma SDE 2"
 ```
+## QDate , QTime
+
+```
+QDate date = QDate::currentDate();
+qInfo() << date;
+
+QTime time1 = QTime::currentTime();
+qInfo() << time1;
+
+QTime time2 = time1.addSecs(100);
+
+if(time2 > time1)
+qInfo() << "Time is ticking";
+```
+
+## QByteArray
+
+Used well in socket programming
+
+## QVariant
+
+> Fundamental Datatypes
+```
+    // Way 1
+    qint8 val1 = 2;
+    QVariant value = val1;
+    qInfo() << value;
+
+    // Way 2
+    QVariant value2;
+    value2.setValue(val1);
+    qInfo() << value2;
+
+    //Retrieving value
+    int retrieve = value.value<qint8>();
+    qInfo() << "Retieved value is ; " << retrieve;
+
+    //Checking if it is int
+    bool ok = false;
+    value.toInt(&ok);
+
+    ok ? qInfo() << "TRUE" : qInfo() << "FALSE";
+```
+
+> Custom Datatypes
+
+```
+
+```
